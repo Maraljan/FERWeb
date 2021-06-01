@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    home_page
+{% endblock %}
+
+
+{% block body %}
+    <style>
+        body{
+                background-color: #d3e7d1;
+            }
+    </style>
+    <figure>
+  <blockquote class="blockquote my-5" style="font-family: DialogInput,cursive">
+    <p>We have used an open source data set — Face Emotion Recognition (FER) from Kaggle and built a CNN to detect emotions. The emotions can be classified into 7 classes — happy, sad, fear, disgust, angry, neutral and surprise.
+Model — We built a 6 layered Convolutional Neural Network (CNN) in Keras and use image augmentations to improve model performance. We tried many different models and have open sourced our best implementation at this link.
+    </p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    Created by <cite title="Source Title">Borysyuk V. and Ashirova M.</cite>
+  </figcaption>
+</figure>
+{% endblock %}
