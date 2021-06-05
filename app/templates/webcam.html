@@ -8,30 +8,48 @@
     <div>
         <video autoplay id="stream">
         </video>
+
+        <img id="client" src="">
     </div>
 {% endblock %}
 {% block js %}
     <script>
+        const video = document.getElementById('stream')
+        const canvas = document.createElement('canvas')
+        const img = document.getElementById('client')
+
+
         function getFrame(){
-            const video = document.getElementById('stream')
-            const canvas = document.createElement('canvas')
             canvas.width = video.videoWidth
             canvas.height = video.videoHeight
             canvas.getContext('2d').drawImage(video, 0, 0)
+            {#console.log(canvas.toDataURL("image/png"))#}
             return canvas.toDataURL("image/png")
         }
 
         function streamVideo(){
-            const video = document.getElementById('stream')
+
+            const WS_URL = 'ws://192.168.0.102:8000/ws'
+
+            const ws = new WebSocket(WS_URL)
+
             navigator.mediaDevices.getUserMedia({
-                video:{
+                video: {
                     height: 300,
                     width: 400,
                 }
             }).then(stream => video.srcObject = stream)
-            setInterval(() => {
-                getFrame()
-            }, 1000 / 30)
+
+            ws.onopen = () => {
+                setInterval(() => {
+                    ws.send(getFrame())
+                }, 1000 / 30)
+            }
+
+            ws.onmessage = message => {
+                img.src = `data:image/png;base64, ${message.image}`
+            }
+
         }
 
         document.addEventListener('DOMContentLoaded', streamVideo, false)
