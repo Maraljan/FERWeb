@@ -23,7 +23,6 @@
             canvas.width = video.videoWidth
             canvas.height = video.videoHeight
             canvas.getContext('2d').drawImage(video, 0, 0)
-            {#console.log(canvas.toDataURL("image/png"))#}
             return canvas.toDataURL("image/png")
         }
 
@@ -43,11 +42,12 @@
             ws.onopen = () => {
                 setInterval(() => {
                     ws.send(getFrame())
-                }, 1000 / 30)
+                }, 1000 / 3)
             }
 
             ws.onmessage = message => {
-                img.src = `data:image/png;base64, ${message.image}`
+                const response = JSON.parse(message.data)
+                img.src = `data:image/png;base64, ${response.image}`
             }
 
         }

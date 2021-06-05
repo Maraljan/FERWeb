@@ -26,10 +26,10 @@ def image():
     if form.validate_on_submit():
         img = form.img.data.read()
         files = {'image': img}
-        # response = requests.post(Config.FER_IMAGE_URL, files=files)
-        # response.raise_for_status()
-        # context['len_content'] = len(img)
-        img_base64 = base64.b64encode(img).decode('utf-8')
+        response = requests.post(Config.FER_IMAGE_URL, files=files)
+        response.raise_for_status()
+        context['len_content'] = len(img)
+        img_base64 = base64.b64encode(response.content).decode('utf-8')
         context['img_base64'] = img_base64
     return render_template('image.html', **context)
 
