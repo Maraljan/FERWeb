@@ -1,16 +1,26 @@
+from typing import TypedDict
 import base64
+import json
 from io import BytesIO
 
+import plotly.utils
 from flask import render_template, send_file
 import requests
+import plotly.express as px
+import pandas as pd
 
 from config import Config
 from . import main
 from .forms import ImageForm, VideoForm
 
 
+class Emotions(TypedDict):
+    face_idx: int
+    emotions_state: dict
+
+
 @main.route('/')
-def hello_world():
+def home_page():
     return render_template('home_page.html')
 
 
@@ -31,6 +41,33 @@ def image():
         context['len_content'] = len(img)
         img_base64 = base64.b64encode(response.content).decode('utf-8')
         context['img_base64'] = img_base64
+
+        emotions: list[Emotions] = json.loads(response.headers['Emotions'])['emotions']
+        figures = []
+        for emotion in emotions:
+            df = pd.DataFrame(dict(
+                r=list(emotion['emotions_state'].values()),
+                theta=list(emotion['emotions_state'].keys()),
+            ))
+            fig = px.line_polar(
+                df,
+                r='r',
+                theta='theta',
+                line_close=True,
+                height=500,
+                width=500,
+                range_r=(0, 100),
+            )
+            # fig.update_traces(fill='toself')
+            figures.append(fig)
+        radars = []
+        for fig, emotion in zip(figures, emotions):
+            radars.append({
+                'fig': json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder),
+                'face_idx': emotion['face_idx'],
+            })
+        context['radars'] = radars
+
     return render_template('image.html', **context)
 
 

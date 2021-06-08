@@ -6,76 +6,42 @@
 
 {% block head %}
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css')}}" type='text/css'>
 {% endblock %}
 {% block body %}
-    <style>
-        body{
-                background-color: #d3e7d1;
-            }
-    </style>
-    <figure>
-        <blockquote class="blockquote my-5" style="font-family: DialogInput,cursive">
+
+    <div class="intro">
+
+        <div class="video">
+            <video class="video__media" src="../static/images/OMSBG12.mov" autoplay="" muted="" loop=""></video>
+        </div>
+        <div class="intro__content">
+            <div class="container">
+                <div class="position-absolute top-10 start-0 col-8 main-shadow my-5 mx-5">
+        <blockquote class="blockquote my-5 mx-5" style="font-family: DialogInput,cursive; color: #ffffff">
             <p>We have used an open source data set — Face Emotion Recognition (FER) from Kaggle and built a CNN to detect emotions. The emotions can be classified into 7 classes — happy, sad, fear, disgust, angry, neutral and surprise.
-                Model — We built a 6 layered Convolutional Neural Network (CNN) in Keras and use image augmentations to improve model performance. We tried many different models and have open sourced our best implementation at this link.
+                Model — We built a 6 layered Convolutional Neural Network (CNN) in Keras and use image augmentations to improve model performance.
             </p>
         </blockquote>
-        <figcaption class="blockquote-footer">
-            Created by <cite title="Source Title">Borysyuk V. and Ashirova M.</cite>
-        </figcaption>
-    </figure>
-
-
-
-
-    <p>
-
-    </p>
-        <input id="happy" type="radio" name="smiley" value="Happy">
-        <label for="happy">:)</label>
-        <input id="normal" type="radio" name="smiley" value="Normal">
-        <label for="normal">:|</label>
-        <input id="angry" type="radio" name="smiley" value="Angry">
-        <label for="angry">:(</label>
-        <input id="furious" type="radio" name="smiley" value="Furious">
-        <label for="furious">:&lt;</label>
-
-
-
-
-        <div class="smiley">
-            <div class="steam-container">
-                <div class="squiggle-container squiggle-container-1">
-                    <div class="squiggle">
-                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-           viewBox="0 0 28.1 80.6" style="enable-background:new 0 0 28.1 80.6;" xml:space="preserve">
-                        <path class="" fill="none" stroke-width="11" stroke-linecap="round" stroke-miterlimit="10" d="M22.6,75.1c-8-5.6-15.2-10.5-15.2-19.9c0-12.1,14.1-17.2,14.1-29.6c0-9.1-6.7-15.7-16-20.1"></path>
-                        </svg>
-                    </div> <!-- end .squiggle-->
-                </div>
-              <div class="squiggle-container squiggle-container-2">
-          <div class="squiggle">
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-           viewBox="0 0 28.1 80.6" style="enable-background:new 0 0 28.1 80.6;" xml:space="preserve">
-                <path class="" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-miterlimit="10" d="M22.6,75.1c-8-5.6-15.2-10.5-15.2-19.9c0-12.1,14.1-17.2,14.1-29.6c0-9.1-6.7-15.7-16-20.1"/>
-            </svg>
-          </div> <!-- end .squiggle-->
+        <div class="blockquote-footer">
+            Created by <cite>Borysyuk V. and Ashirova M.</cite>
         </div>
-      <div class="squiggle-container squiggle-container-3">
-      <div class="squiggle">
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-           viewBox="0 0 28.1 80.6" style="enable-background:new 0 0 28.1 80.6;" xml:space="preserve">
-        <path class="" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-miterlimit="10" d="M22.6,75.1c-8-5.6-15.2-10.5-15.2-19.9c0-12.1,14.1-17.2,14.1-29.6c0-9.1-6.7-15.7-16-20.1"></path>
-        </svg>
-      </div> <!-- end .squiggle-->
     </div>
+                <div class="flip-card position-absolute position-absolute bottom-50 end-0" style="opacity: 0.5">
+        <h1>What’s Your Emotional Default?</h1>
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <i class="bi bi-emoji-frown-fill" style="font-size: 200px"></i>
+            </div>
+            <div class="flip-card-back">
+                <a href="{{ url_for('main.webcam') }}" style="color: inherit"><i class="bi bi-emoji-laughing-fill " style="font-size: 200px"></i></a>
+            </div>
+        </div>
+    </div>
+            </div>
+        </div>
     </div>
 
-	<div class="eyes">
-		<div class="eye"></div>
-		<div class="eye"></div>
-	</div>
-	<div class="mouth"></div>
-</div>
 
 
 {% endblock %}

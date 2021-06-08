@@ -24,7 +24,6 @@
 						<form class="form-group" enctype="multipart/form-data" method="post">
                             {{ form.csrf_token }}
 							<div class="row">
-                                <p>Content: {{ len_content }}</p>
 								{{ form.img(type="file", class="form-control") }}
 							</div>
 							<div class="row">
@@ -38,8 +37,31 @@
 	</div>
     {% if img_base64 %}
         <div>
-            <img src="data:image/png;base64, {{ img_base64 }}" width="400px" height="400px">
+            <div class="text-center">
+                <img src="data:image/png;base64, {{ img_base64 }}" width="50%" height="50%">
+            </div>
+            <script>
+                let fig = null
+                const figLayout = {
+                    height: 500,
+                    weight: 500,
+                }
+            </script>
+            <div class="row">
+                {% for radar in radars %}
+                    <div class="col-4">
+                        <h3 class="text-center">Person-{{ radar.face_idx }}</h3>
+                        <div id="{{ radar.face_idx }}">
+                            <script type="text/javascript">
+                                fig = {{ radar.fig | safe }}
+                                Plotly.newPlot('{{ radar.face_idx }}', fig, {})
+                            </script>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
+
     {% endif %}
 
 {% endblock %}
