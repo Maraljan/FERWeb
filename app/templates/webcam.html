@@ -6,10 +6,16 @@
 
 {% block body %}
     <div>
-        <video autoplay id="stream">
-        </video>
+        <div class="row">
+            <div class="col-6 text-center">
+                <video autoplay id="stream" class="mx-auto"></video>
+            </div>
+            <div class="col-6 text-center">
+                <img id="client" src="">
+            </div>
+        </div>
 
-        <img id="client" src="">
+
     </div>
 {% endblock %}
 {% block js %}
@@ -34,15 +40,15 @@
 
             navigator.mediaDevices.getUserMedia({
                 video: {
-                    height: 300,
-                    width: 400,
+                    height: 600,
+                    width: 700,
                 }
             }).then(stream => video.srcObject = stream)
 
             ws.onopen = () => {
                 setInterval(() => {
                     ws.send(getFrame())
-                }, 1000 / 3)
+                }, 1000 / 5)
             }
 
             ws.onmessage = message => {
